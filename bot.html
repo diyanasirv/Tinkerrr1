@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pregnancy Care Chatbot</title>
     <style>
-        /* CSS for the chatbot */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
@@ -18,8 +17,6 @@
 
         .chat-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
             width: 100%;
             max-width: 400px;
@@ -28,13 +25,6 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-        }
-
-        .chatbox {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            width: 100%;
         }
 
         .chatbox-header {
@@ -50,28 +40,62 @@
             overflow-y: auto;
             padding: 10px;
             margin-bottom: 10px;
-            background-color: #f9f9f9;
+            background-color: #d4afaf;
             border-radius: 10px;
         }
 
-        .chat-message {
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-        }
+       .chat-message {
+    padding: 10px;
+    gap: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    max-width: 80%; /* Ensures messages don't exceed chatbox width */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.chatbox-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    word-wrap: break-word; /* Ensures text wraps */
+    max-height: 350px; 
+    .chatbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+/* Limits height to prevent overflow */
+}
 
-        .bot-message {
-            background-color: #e3f2fd;
-            text-align: left;
-        }
+.chat-message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    max-width: 80%; /* Ensures messages don't exceed chatbox width */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin-bottom: 10px;
+}
 
-        .user-message {
-            background-color: #c8e6c9;
-            text-align: right;
+.user-message, .bot-message {
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+    max-width: 80%; /* Ensures messages fit within the chatbox */
+}
+
+
+        .input-container {
+            display: flex;
+            width: 100%;
         }
 
         .chat-input {
-            width: 85%;
+            flex-grow: 1;
             padding: 10px;
             border-radius: 20px;
             border: 1px solid #ddd;
@@ -92,14 +116,10 @@
         .send-btn:hover {
             background-color: #45a049;
         }
-
-        input:focus {
-            outline: none;
-        }
     </style>
 </head>
 <body>
-    <!-- Chatbot Container -->
+
     <div class="chat-container">
         <div class="chatbox">
             <div class="chatbox-header">
@@ -110,53 +130,70 @@
                     <p>Hello! How can I assist you today?</p>
                 </div>
             </div>
-            <input type="text" id="userInput" class="chat-input" placeholder="Type your message..." autofocus />
-            <button onclick="sendMessage()" class="send-btn">Send</button>
+            <div class="input-container">
+                <input type="text" id="userInput" class="chat-input" placeholder="Type your message..." autofocus />
+                <button onclick="sendMessage()" class="send-btn">Send</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // JavaScript for the chatbot functionality
         document.addEventListener("DOMContentLoaded", function () {
-    const userInput = document.getElementById("userInput");
-    const chatBox = document.getElementById("chatBox");
+            const userInput = document.getElementById("userInput");
+            userInput.addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    sendMessage();
+                }
+            });
+        });
 
-    userInput.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            sendMessage();
+        function sendMessage() {
+            const userInput = document.getElementById("userInput");
+            const chatBox = document.getElementById("chat");
+            let userMessage = userInput.value.trim();
+            
+            if (!userMessage) return;
+
+            appendMessage(userMessage, "user-message");
+            let botResponse = getPregnancyResponse(userMessage);
+            appendMessage(botResponse, "bot-message");
+
+            userInput.value = "";
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
-    });
-});
 
-function sendMessage() {
-    const userInput = document.getElementById("userInput");
-    const chatBox = document.getElementById("chatBox");
-    let userMessage = userInput.value.trim();
-    
-    if (!userMessage) return;
+        function appendMessage(message, className) {
+            const chatBox = document.getElementById("chat");
+            let messageDiv = document.createElement("div");
+            messageDiv.classList.add("chat-message", className);
+            messageDiv.textContent = message;
+            chatBox.appendChild(messageDiv);
+        }
 
-    appendMessage("You", userMessage, "user-message");
-    let botResponse = getPregnancyResponse(userMessage);
-    appendMessage("Bot", botResponse, "bot-message");
+        function getPregnancyResponse(userInput) {
+            userInput = userInput.toLowerCase();
 
-    userInput.value = "";
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function appendMessage(sender, message, className) {
-    const chatBox = document.getElementById("chatBox");
-    let messageDiv = document.createElement("div");
-    messageDiv.classList.add(className);
-    messageDiv.textContent = `${sender}: ${message}`;
-    chatBox.appendChild(messageDiv);
-}
-
-
-    // Responses for common pregnancy-related questions
-    if (userInput.includes("pain") || userInput.includes("hurt")) {
-        return "I'm so sorry to hear that you're in pain. It's important to speak to your healthcare provider. Please rest and try to stay calm.";
-    } else if (userInput.includes("help")) {
+            if (userInput.includes("pain") || userInput.includes("hurt")) {
+                return "I'm so sorry to hear that you're in pain. It's important to speak to your healthcare provider.";
+            } else if (userInput.includes("help")) {
+                return "I'm here for you. Can you describe the situation?";
+            } else if (userInput.includes("baby")) {
+                return "It's important to track your baby's movements and monitor any discomfort.";
+            } else if (userInput.includes("headache")) {
+                return "Headaches are common. Stay hydrated and rest.";
+            } else if (userInput.includes("nausea")) {
+                return "Try small meals and ginger tea for nausea relief.";
+            } else if (userInput.includes("exercise")) {
+                return "Light exercises like walking and prenatal yoga are beneficial.";
+            } else if (userInput.includes("diet")) {
+                return "Include fruits, vegetables, whole grains, and protein in your diet.";
+            } else if (userInput.includes("sleep")) {
+                return "Try sleeping on your side with a pillow for support.";
+            } else if (userInput.includes("stress")) {
+                return "Practice relaxation techniques like meditation and deep breathing.";
+            } 
+            else if (userInput.includes("help")) {
         return "I'm here for you. Can you describe the situation or tell me more about how you're feeling?";
     } else if (userInput.includes("baby")) {
         return "It's important to make sure your baby is doing well. Make sure to track your movements and monitor any discomfort.";
@@ -236,123 +273,22 @@ function appendMessage(sender, message, className) {
         return "Pack your hospital bag with essentials like clothes, toiletries, and baby items. Don't forget important documents!";
     } else if (userInput.includes("baby movements")) {
         return "Feeling your baby move is reassuring. If movements decrease, contact your healthcare provider immediately.";
-    }
-    else if (userInput.includes("baby movements")) {
-        return "Feeling your baby move is reassuring. If movements decrease, contact your healthcare provider immediately.";
-} else if (userInput.includes("baby names") || userInput.includes("name ideas")) {
-    return "Choosing a baby name is exciting! Consider family names, meanings, and how the name sounds with your last name.";
-} else if (userInput.includes("baby registry")) {
-    return "A baby registry helps you prepare for your baby's arrival. Include essentials like diapers, clothes, and a car seat.";
-} else if (userInput.includes("baby shower")) {
-    return "A baby shower is a great way to celebrate your upcoming arrival. Plan games, food, and fun activities with your loved ones.";
-} else if (userInput.includes("maternity leave")) {
-    return "Maternity leave allows you to recover and bond with your baby. Check your employer's policy and plan ahead.";
-} else if (userInput.includes("pregnancy pillow")) {
-    return "A pregnancy pillow can help you sleep more comfortably. Look for one that supports your back, belly, and legs.";
-} else if (userInput.includes("baby clothes")) {
-    return "Baby clothes should be soft, comfortable, and easy to put on. Don't forget to wash them before use!";
-} else if (userInput.includes("baby gear")) {
-    return "Essential baby gear includes a crib, stroller, car seat, and diaper bag. Research safety standards before purchasing.";
-} else if (userInput.includes("babyproofing")) {
-    return "Babyproofing your home is important. Cover outlets, secure furniture, and keep small objects out of reach.";
-} else if (userInput.includes("baby milestones")) {
-    return "Your baby will reach many milestones in their first year, like smiling, rolling over, and crawling. Enjoy every moment!";
-} else if (userInput.includes("baby sleep")) {
-    return "Newborns sleep a lot but in short stretches. Create a calming bedtime routine to help them sleep better.";
-} else if (userInput.includes("baby feeding")) {
-    return "Whether breastfeeding or formula feeding, make sure your baby is getting enough nutrients. Follow your pediatrician's advice.";
-} else if (userInput.includes("baby bath")) {
-    return "Bathe your baby 2-3 times a week using warm water and gentle soap. Always support their head and neck.";
-} else if (userInput.includes("baby crying")) {
-    return "Babies cry to communicate. Check if they're hungry, tired, or need a diaper change. Comfort them with gentle rocking or singing.";
-} else if (userInput.includes("baby health")) {
-    return "Regular checkups with your pediatrician are important for your baby's health. Keep track of vaccinations and growth milestones.";
-} else if (userInput.includes("baby toys")) {
-    return "Choose age-appropriate toys that are safe and stimulating. Look for toys that encourage sensory development.";
-} else if (userInput.includes("baby carrier")) {
-    return "A baby carrier allows you to keep your baby close while keeping your hands free. Make sure it provides proper support.";
-} else if (userInput.includes("baby monitor")) {
-    return "A baby monitor helps you keep an eye on your baby while they sleep. Choose one with good audio and video quality.";
-} else if (userInput.includes("baby sunscreen")) {
-    return "Avoid direct sun exposure for babies under 6 months. For older babies, use a baby-safe sunscreen with SPF 30 or higher.";
-} else if (userInput.includes("baby teething")) {
-    return "Teething can be uncomfortable for your baby. Offer a teething ring or gently massage their gums with a clean finger.";
-} else if (userInput.includes("baby colic")) {
-    return "Colic can cause prolonged crying in babies. Try soothing techniques like swaddling, rocking, or white noise.";
-} else if (userInput.includes("baby rash")) {
-    return "Baby rashes are common. Keep the area clean and dry, and consult your pediatrician if it doesn't improve.";
-} else if (userInput.includes("baby fever")) {
-    return "If your baby has a fever, contact your pediatrician. Keep them hydrated and monitor their temperature.";
-} else if (userInput.includes("baby cold")) {
-    return "Babies can catch colds easily. Use a saline spray and a bulb syringe to clear their nose, and consult your pediatrician if symptoms worsen.";
-} else if (userInput.includes("baby allergies")) {
-    return "Watch for signs of allergies, like rashes or difficulty breathing. Introduce new foods one at a time and consult your pediatrician.";
-} else if (userInput.includes("baby vaccines")) {
-    return "Vaccines protect your baby from serious illnesses. Follow the recommended schedule provided by your pediatrician.";
-} else if (userInput.includes("baby weight gain")) {
-    return "Healthy weight gain is important for your baby's growth. Your pediatrician will track this during checkups.";
-} else if (userInput.includes("baby development")) {
-    return "Your baby will grow and develop rapidly in the first year. Encourage tummy time and interactive play to support their development.";
-} else if (userInput.includes("baby bonding")) {
-    return "Bonding with your baby is important. Spend time cuddling, talking, and singing to them.";
-} else if (userInput.includes("baby books")) {
-    return "Reading to your baby helps with language development. Choose colorful, interactive books with simple text.";
-} else if (userInput.includes("baby music")) {
-    return "Music can soothe and stimulate your baby. Play lullabies or sing to them to create a calming environment.";
-} else if (userInput.includes("baby travel")) {
-    return "Traveling with a baby requires planning. Pack essentials like diapers, formula, and a change of clothes.";
-} else if (userInput.includes("baby safety")) {
-    return "Always prioritize your baby's safety. Use a rear-facing car seat, avoid loose bedding in the crib, and never leave them unattended.";
-} else if (userInput.includes("baby sleep training")) {
-    return "Sleep training can help your baby develop healthy sleep habits. Consult your pediatrician for advice on methods like Ferber or gentle sleep training.";
-} else if (userInput.includes("baby weaning")) {
-    return "Weaning is the process of introducing solid foods. Start with single-grain cereals and pureed fruits or vegetables.";
-} else if (userInput.includes("baby potty training")) {
-    return "Potty training usually starts around 2-3 years old. Look for signs of readiness, like staying dry for longer periods.";
-} else if (userInput.includes("baby daycare")) {
-    return "Choosing a daycare is an important decision. Visit facilities, check reviews, and ask about their safety policies.";
-} else if (userInput.includes("baby siblings")) {
-    return "Preparing siblings for a new baby can help ease the transition. Involve them in preparations and give them extra attention.";
-} else if (userInput.includes("baby photos")) {
-    return "Capture precious moments with your baby through photos. Consider hiring a professional photographer for a newborn session.";
-} else if (userInput.includes("baby memory book")) {
-    return "A memory book is a great way to document your baby's milestones. Include photos, handprints, and special memories.";
-} else if (userInput.includes("baby first steps")) {
-    return "Your baby's first steps are an exciting milestone! Encourage walking by holding their hands or using a push toy.";
-} else if (userInput.includes("baby first words")) {
-    return "Your baby's first words are a special moment. Talk to them often and encourage language development with simple words and phrases.";
-} else if (userInput.includes("baby playdate")) {
-    return "Playdates are a great way for your baby to socialize. Start with short, supervised visits with other babies.";
-} else if (userInput.includes("baby milestones")) {
-    return "Your baby will reach many milestones in their first year. Celebrate each one and track their progress with your pediatrician.";
-} else if (userInput.includes("baby growth spurts")) {
-    return "Babies go through growth spurts where they may eat and sleep more. Be patient and provide extra comfort during these times.";
-} else if (userInput.includes("baby sleep regression")) {
-    return "Sleep regressions are temporary disruptions in your baby's sleep patterns. Stick to a consistent bedtime routine to help them through it.";
-} else if (userInput.includes("baby separation anxiety")) {
-    return "Separation anxiety is a normal part of development. Reassure your baby with gentle goodbyes and consistent routines.";
-} else if (userInput.includes("baby night waking")) {
-    return "Night waking is common in babies. Ensure they're comfortable and not hungry, and try to establish a calming bedtime routine.";
-} else if (userInput.includes("baby nap schedule")) {
-    return "A consistent nap schedule helps your baby get the rest they need. Follow their cues and create a calming nap environment.";
-} else if (userInput.includes("baby bedtime routine")) {
-    return "A bedtime routine helps signal to your baby that it's time to sleep. Include activities like a bath, story, and lullaby.";
-} else if (userInput.includes("baby sleep environment")) {
-    return "Create a safe and comfortable sleep environment for your baby. Use a firm mattress, avoid loose bedding, and keep the room cool.";
-} else {
-    return "I'm here to help! If you're feeling anxious or have questions, feel free to share.";
-}
-
-}
-
-
-kkk
-        // Optional: Add event listener to send message when "Enter" is pressed
-        document.getElementById("userInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                sendMessage();
+    } else if (userInput.includes("okay")) {
+        return "  Haam..ask anything related to pregnancy";
+    } else if (userInput.includes("ok")) {
+        return "Haam...ask anything related to pregnancy.";
+    } else if (userInput.includes("how are you")) {
+        return "i am fine,ask me about pregnancy related questions";
+    } else if (userInput.includes("sorry")) {
+        return "its okay dear,...anything else??";
+    } else {
+                return "I'm here to help! Can you please ask another question related to pregnancy care?";
             }
-        });
+        }
     </script>
+
 </body>
 </html>
+
+
+    
