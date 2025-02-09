@@ -295,15 +295,18 @@
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+     document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add("loaded");
         });
 
         function trackWeight() {
             let weight = document.getElementById("weight").value;
             if (weight) {
-                document.getElementById("weightResult").innerText = "Your current weight is " + weight + " kg. Keep tracking weekly!";
-            } else {
+                if(weight<80){
+                document.getElementById("weightResult").innerText = "Your current weight is " + weight + " kg. which is normal...keep tracking!";}
+            else {document.getElementById("weightResult").innerText = "Your current weight is " + weight + " kg. which is abnormal...be carefull!";}}
+
+             else {
                 document.getElementById("weightResult").innerText = "Please enter a valid weight.";
             }
         }

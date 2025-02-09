@@ -21,13 +21,18 @@
             text-align: center;
             padding: 15px 0;
             width: 100%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(248, 248, 248, 0.5);
         }
 
         .heading {
-            font-size: 24px;
-            font-weight: 600;
-            margin: 0;
+    font-size: 24px; 
+    font-weight: 600;
+    margin: 0;
+    font-family: "Poppins", sans-serif; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+    color: #000000; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
         }
 
         .intro {
@@ -35,7 +40,7 @@
             margin: 40px auto;
             padding: 30px;
             text-align: center;
-            font-family: 'Playfair Display', serif;
+            
             font-size: 20px;
             line-height: 1.6;
             max-width: 1200px;
@@ -99,18 +104,30 @@
 
         .symptom {
             background: rgba(255, 255, 255, 0.9);
-            padding: 40px 20px;
-            border-radius: 15px;
-            text-align: center;
-            max-width: 600px;
-            margin: 40px auto;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 20px 15px;
+        border-radius: 15px;
+        text-align: center;
+        max-width: 500px; 
+        margin: 40px auto;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease
         }
+        .symptom:hover {
+        transform: translateY(-5px); /* Lift effect on hover */
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    }
 
         .symptom h1 {
-            font-size: 28px;
+            font-size: 24px;
             color: #0082c8; 
             margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .symptom p{
+            font-size: 16px;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 20px;
         }
 
         .checker {
@@ -180,7 +197,10 @@
 </div>
 
 <div class="symptom">
-    <h1>Symptom Checker</h1>
+    <h1>"Worried About Pregnancy Symptoms? Find Answers Here!"
+
+    </h1>
+    <p>"Are you experiencing multiple symptoms during pregnancy and feeling concerned? Understanding what’s normal and when to seek help is important for your peace of mind. Simply check your symptoms, and get clear, reliable insights to guide you. Whether it’s a common pregnancy change or something that needs attention, you’ll have the reassurance and knowledge to navigate this journey with confidence."</p>
     <a href="checker.html"><button class="checker">Click here to check symptoms</button></a>
 </div>
 
