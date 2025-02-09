@@ -34,8 +34,15 @@ https://pregnancyjourney.netlify.app/
 ### Project Description 
 screenshots
 ![image](https://github.com/user-attachments/assets/b400cb96-5470-4a9b-af86-76a2d8e3ee94)
+The image shows the first UI
+
 ![image](https://github.com/user-attachments/assets/a09e50cd-bdb8-4ce7-910f-9cb4d8f4ea51)
-![image](https://github.com/user-attachments/assets/a03573d7-67e9-4446-9f4e-4c208f879c34)
+This image shows the second UI showing important diets , trimester related etc
+
+![image](https://github.com/user-attachments/assets/bfde750d-92db-4648-ad47-528688f20665)
+This image shows the chatbox interface
+
+
 
 
 
