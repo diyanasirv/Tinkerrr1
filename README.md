@@ -37,10 +37,13 @@ screenshots
 The image shows the first UI
 
 ![image](https://github.com/user-attachments/assets/a09e50cd-bdb8-4ce7-910f-9cb4d8f4ea51)
-This image shows the second UI showing important diets , trimester related etc
+This image shows the preview of second UI showing important diets , trimester related etc
+
+![image](https://github.com/user-attachments/assets/d1890d37-9e90-4c96-a045-3b7e8e88d3f9)
+This image is a preview of  pregnancy symptoms checker.
 
 ![image](https://github.com/user-attachments/assets/bfde750d-92db-4648-ad47-528688f20665)
-This image shows the chatbot interface
+This image shows  preview of the chatbot interface
 
 ### video
 https://youtu.be/ExwkY4JGBp8
