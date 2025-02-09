@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pregnancy Symptom Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.5);
+      background-color: rgb(94, 154, 195);
+    }
+    h1 {
+      text-align: center;
+      color: #513030;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px;
+      background-color: #3771a1;
+      color: rgb(255, 255, 255);
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+    }
+    button:hover {
+      background-color: #0082c8;
+    }
+    .results {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .disclaimer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+      background-color: #fffbe5;
+      border-left: 4px solid #ffc107;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pregnancy Symptom Checker</h1>
+    <div class="grid" id="symptomGrid">
+      <button onclick="showInstructions('nausea')">Nausea</button>
+      <button onclick="showInstructions('vision_changes')">Blurred Vision</button>
+      <button onclick="showInstructions('fatigue')">Fatigue</button>
+      <button onclick="showInstructions('headache')">Headache</button>
+      <button onclick="showInstructions('swelling')">Swelling</button>
+      <button onclick="showInstructions('frequent_urination')">Frequent Urination</button>
+      <button onclick="showInstructions('constipation')">Constipation</button>
+      <button onclick="showInstructions('implantation_bleeding')">Implantation Bleeding</button>
+      <button onclick="showInstructions('cramping')">Cramping</button>
+      <button onclick="showInstructions('breast_tenderness')">Breast Tenderness</button>
+      <button onclick="showInstructions('decreased_movements')">Decreased Movements</button>
+      <button onclick="showInstructions('heartburn')">Heartburn</button>
+      <button onclick="showInstructions('back_pain')">Back Pain</button>
+      <button onclick="showInstructions('insomnia')">Insomnia</button>
+      <button onclick="showInstructions('dizziness')">Dizziness</button>
+      <button onclick="showInstructions('leg_cramps')">Leg Cramps</button>
+      <button onclick="showInstructions('shortness_of_breath')">Shortness of Breath</button>
+      <button onclick="showInstructions('food_aversions')">Food Aversions</button>
+      <button onclick="showInstructions('increased_hunger')">Increased Hunger</button>
+      <button onclick="showInstructions('mood_swings')">Mood Swings</button>
+    </div>
+
+    <div id="results" class="results"></div>
+
+  </div>
+
+  <script>
+    const symptoms = {
+      nausea: `
+        <strong>Nausea</strong> is one of the most common symptoms of pregnancy, often referred to as morning sickness. It is caused by the rapid increase in hormones like hCG and estrogen. Nausea typically starts around the 6th week of pregnancy and subsides by the second trimester, though some women may experience it throughout pregnancy.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Eat small, frequent meals (e.g., crackers, toast, or bananas).</li>
+          <li>Avoid greasy, spicy, or strong-smelling foods.</li>
+          <li>Stay hydrated with water, ginger tea, or electrolyte drinks.</li>
+          <li>Try acupressure wristbands or vitamin B6 supplements.</li>
+          <li>Rest and avoid sudden movements.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If nausea is severe, persistent, or accompanied by vomiting that prevents you from keeping food or liquids down, consult your doctor. This could indicate hyperemesis gravidarum, a condition requiring medical treatment.
+      `,
+      vision_changes: `
+        <strong>Blurred vision or vision changes</strong> during pregnancy can occur due to hormonal shifts, fluid retention, or changes in blood pressure. These changes are usually temporary but should be monitored closely.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Rest your eyes regularly, especially if you spend time on screens.</li>
+          <li>Stay hydrated to reduce fluid retention.</li>
+          <li>Use artificial tears to relieve dry eyes.</li>
+          <li>Wear sunglasses to protect your eyes from bright light.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If you experience sudden vision changes, double vision, or flashes of light, seek immediate medical attention. These could be signs of preeclampsia or other serious conditions.
+      `,
+      fatigue: `
+        <strong>Fatigue</strong> is a common symptom in early pregnancy due to hormonal changes, increased blood production, and the body's effort to support the growing baby. It often improves in the second trimester but may return in the third trimester.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Prioritize rest and take short naps during the day.</li>
+          <li>Maintain a balanced diet rich in iron (e.g., spinach, lentils, and lean meats).</li>
+          <li>Stay hydrated and avoid caffeine.</li>
+          <li>Engage in light exercise like walking or prenatal yoga.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If fatigue is severe or accompanied by dizziness, pale skin, or shortness of breath, consult your doctor to rule out anemia or other conditions.
+      `,
+      headache: `
+        <strong>Headaches</strong> during pregnancy can result from hormonal changes, stress, dehydration, or low blood sugar. They are most common in the first and third trimesters.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Drink plenty of water and eat small, frequent meals.</li>
+          <li>Practice relaxation techniques like deep breathing or meditation.</li>
+          <li>Use a cold compress on your forehead or neck.</li>
+          <li>Avoid caffeine and over-the-counter painkillers unless prescribed by your doctor.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If headaches are severe, persistent, or accompanied by vision changes, swelling, or high blood pressure, seek immediate medical attention. These could be signs of preeclampsia.
+      `,
+      swelling: `
+        <strong>Swelling</strong> (edema) in the feet, ankles, and hands is common during pregnancy, especially in the third trimester. It is caused by increased fluid retention and pressure on blood vessels.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Elevate your legs when sitting or lying down.</li>
+          <li>Avoid standing for long periods.</li>
+          <li>Wear comfortable, supportive shoes.</li>
+          <li>Reduce salt intake to minimize fluid retention.</li>
+          <li>Stay hydrated and engage in light exercise.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If swelling is sudden, severe, or accompanied by headaches, vision changes, or pain in the upper abdomen, seek immediate medical attention. These could be signs of preeclampsia or blood clots.
+      `,
+      frequent_urination: `
+        <strong>Frequent urination</strong> is a common symptom caused by hormonal changes and increased pressure on the bladder as the baby grows. It is most common in the first and third trimesters.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Avoid caffeine, which can act as a diuretic.</li>
+          <li>Empty your bladder completely when using the restroom.</li>
+          <li>Practice pelvic floor exercises (Kegels) to strengthen bladder control.</li>
+          <li>Limit fluid intake before bedtime to reduce nighttime trips.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If frequent urination is accompanied by pain, burning, or cloudy urine, consult your doctor. These could be signs of a urinary tract infection.
+      `,
+      constipation: `
+        <strong>Constipation</strong> is common during pregnancy due to hormonal changes that slow digestion and the pressure of the growing uterus on the intestines.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Increase your fiber intake by eating fruits, vegetables, and whole grains.</li>
+          <li>Drink plenty of water and stay active with light exercises like walking.</li>
+          <li>Try prunes or prune juice to stimulate bowel movements.</li>
+          <li>Avoid processed foods and excessive dairy.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If constipation is severe or accompanied by abdominal pain, consult your doctor. They may recommend safe stool softeners or laxatives.
+      `,
+      implantation_bleeding: `
+        <strong>Implantation bleeding</strong> is light spotting that occurs when the fertilized egg attaches to the uterine lining, typically around 6-12 days after ovulation. It is usually harmless and lasts for a short time.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Rest and avoid strenuous activities.</li>
+          <li>Use a panty liner to manage light spotting.</li>
+          <li>Stay hydrated and monitor the bleeding.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If bleeding is heavy, accompanied by severe cramps, or persists for more than a few days, seek medical advice to rule out complications like miscarriage or ectopic pregnancy.
+      `,
+      cramping: `
+        <strong>Mild cramping</strong> is common as the uterus stretches to accommodate the growing baby. It is usually harmless and similar to menstrual cramps.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Stay hydrated and rest.</li>
+          <li>Use a warm compress on the lower abdomen.</li>
+          <li>Practice gentle stretching or prenatal yoga.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If cramping is severe, persistent, or accompanied by bleeding, contact your doctor immediately. These could be signs of preterm labor or other complications.
+      `,
+      breast_tenderness: `
+        <strong>Breast tenderness</strong> is one of the earliest signs of pregnancy caused by hormonal changes. It usually subsides as the pregnancy progresses.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Wear a supportive, well-fitting bra without underwires.</li>
+          <li>Apply warm or cold compresses to ease discomfort.</li>
+          <li>Avoid caffeine and reduce salt intake to minimize swelling.</li>
+          <li>Use a gentle moisturizer to prevent dryness.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If breast tenderness is accompanied by redness, warmth, or a lump, consult your doctor to rule out infections or other conditions.
+      `,
+      decreased_movements: `
+        <strong>Decreased baby movements</strong> in the third trimester could indicate potential complications. It is important to monitor your baby's movements regularly.
+        <br><br>
+        <strong>What to do:</strong>
+        <ul>
+          <li>Perform a kick count by lying down and monitoring movements; you should feel at least 10 movements in 2 hours.</li>
+          <li>Stay hydrated and try drinking a cold beverage or eating a snack to stimulate movement.</li>
+          <li>Change positions or gently poke your belly to encourage movement.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If movements are fewer or absent, contact your healthcare provider immediately for further assessment.
+      `,
+      heartburn: `
+        <strong>Heartburn</strong> is a common symptom during pregnancy caused by hormonal changes that relax the valve between the stomach and esophagus, allowing stomach acid to rise. It is most common in the second and third trimesters as the growing uterus puts pressure on the stomach.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Avoid spicy, greasy, or acidic foods that can trigger heartburn.</li>
+          <li>Eat small, frequent meals instead of large ones to reduce pressure on the stomach.</li>
+          <li>Avoid lying down immediately after eating; wait at least 2-3 hours.</li>
+          <li>Sleep with your head elevated using pillows to prevent acid reflux at night.</li>
+          <li>Drink milk or eat yogurt to neutralize stomach acid.</li>
+          <li>Chew sugar-free gum to stimulate saliva production, which can neutralize acid.</li>
+          <li>Wear loose-fitting clothing to avoid putting pressure on your abdomen.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If heartburn is severe, persistent, or accompanied by difficulty swallowing, consult your doctor. They may recommend safe antacids or other treatments.
+      `,
+      back_pain: `
+        <strong>Back pain</strong> is common during pregnancy due to the growing uterus, hormonal changes, and changes in posture. It is most common in the second and third trimesters.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Practice good posture and avoid standing for long periods.</li>
+          <li>Use a pregnancy support belt to reduce strain on your back.</li>
+          <li>Apply a warm compress or take a warm bath to relax muscles.</li>
+          <li>Engage in gentle exercises like prenatal yoga or swimming.</li>
+          <li>Sleep on your side with a pillow between your knees for better spinal alignment.</li>
+          <li>Avoid lifting heavy objects or twisting your back.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If back pain is severe, persistent, or accompanied by fever or bleeding, consult your doctor to rule out infections or other complications.
+      `,
+      insomnia: `
+        <strong>Insomnia</strong> is common during pregnancy due to hormonal changes, anxiety, or physical discomfort. It is most common in the third trimester.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Establish a regular sleep routine and create a comfortable sleep environment.</li>
+          <li>Avoid caffeine and heavy meals before bedtime.</li>
+          <li>Practice relaxation techniques like deep breathing or meditation.</li>
+          <li>Use pregnancy pillows to support your body while sleeping.</li>
+          <li>Limit screen time before bed to reduce exposure to blue light.</li>
+          <li>Take a warm bath or drink herbal tea (e.g., chamomile) before bed to relax.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If insomnia is severe or affecting your daily functioning, consult your doctor for safe sleep aids or other recommendations.
+      `,
+      dizziness: `
+        <strong>Dizziness</strong> during pregnancy is often caused by hormonal changes, low blood sugar, or low blood pressure. It is most common in the first and second trimesters.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Stand up slowly from sitting or lying down.</li>
+          <li>Eat small, frequent meals to maintain blood sugar levels.</li>
+          <li>Stay hydrated and avoid standing for long periods.</li>
+          <li>Practice deep breathing exercises to improve circulation.</li>
+          <li>Avoid hot environments or sudden changes in position.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If dizziness is severe, persistent, or accompanied by fainting, consult your doctor to rule out anemia or other conditions.
+      `,
+      leg_cramps: `
+        <strong>Leg cramps</strong> are common during pregnancy, especially at night. They are caused by changes in circulation, pressure on nerves, and mineral imbalances.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Stretch your calves before bed to prevent cramps.</li>
+          <li>Stay hydrated and maintain a balanced diet rich in calcium and magnesium.</li>
+          <li>Massage your legs or apply a warm compress to relieve cramps.</li>
+          <li>Avoid standing or sitting in one position for too long.</li>
+          <li>Wear comfortable shoes and avoid high heels.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If leg cramps are severe, persistent, or accompanied by swelling or redness, consult your doctor to rule out blood clots.
+      `,
+      shortness_of_breath: `
+        <strong>Shortness of breath</strong> is common during pregnancy due to the growing uterus pressing on the diaphragm and hormonal changes. It is most common in the third trimester.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Practice good posture to give your lungs more space.</li>
+          <li>Sleep propped up with pillows to ease breathing.</li>
+          <li>Avoid strenuous activities and take frequent breaks.</li>
+          <li>Practice deep breathing exercises to improve lung capacity.</li>
+          <li>Stay hydrated and avoid overexertion.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If shortness of breath is severe, sudden, or accompanied by chest pain, consult your doctor immediately to rule out serious conditions like pulmonary embolism.
+      `,
+      food_aversions: `
+        <strong>Food aversions</strong> are common during pregnancy due to hormonal changes affecting the sense of smell and taste. They are most common in the first trimester but may persist throughout pregnancy.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Eat small portions of foods that appeal to you, even if they are not part of your usual diet.</li>
+          <li>Avoid strong-smelling foods or cooking odors that trigger aversions.</li>
+          <li>Experiment with bland or cold foods, which may be easier to tolerate.</li>
+          <li>Stay hydrated and consider drinking smoothies or soups if solid foods are unappealing.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If food aversions lead to inadequate nutrition or significant weight loss, consult your doctor or a dietitian for guidance.
+      `,
+      increased_hunger: `
+        <strong>Increased hunger</strong> is normal during pregnancy due to the energy demands of supporting the growing baby. It is most common in the second and third trimesters.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Eat small, frequent meals to keep your energy levels stable.</li>
+          <li>Focus on nutrient-dense foods like fruits, vegetables, whole grains, and lean proteins.</li>
+          <li>Keep healthy snacks on hand, such as nuts, yogurt, or whole-grain crackers.</li>
+          <li>Avoid excessive consumption of sugary or processed foods, which can lead to energy crashes.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If increased hunger is accompanied by excessive thirst, frequent urination, or rapid weight gain, consult your doctor to rule out gestational diabetes.
+      `,
+      mood_swings: `
+        <strong>Mood swings</strong> are common during pregnancy due to hormonal changes and emotional adjustments. They are most common in the first and third trimesters.
+        <br><br>
+        <strong>Tips for relief:</strong>
+        <ul>
+          <li>Practice relaxation techniques like deep breathing, meditation, or prenatal yoga.</li>
+          <li>Stay active with light exercises like walking or swimming to boost your mood.</li>
+          <li>Communicate openly with your partner, family, or friends about your feelings.</li>
+          <li>Get plenty of rest and prioritize self-care.</li>
+          <li>Consider joining a pregnancy support group to connect with others experiencing similar emotions.</li>
+        </ul>
+        <strong>When to seek medical advice:</strong> If mood swings are severe, persistent, or accompanied by feelings of hopelessness or anxiety, consult your doctor. These could be signs of prenatal depression or anxiety, which may require treatment.
+      `
+    };
+
+    function showInstructions(symptom) {
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = `<p>${symptoms[symptom]}</p>`;
+    }
+  </script>
+</body>
+</html>

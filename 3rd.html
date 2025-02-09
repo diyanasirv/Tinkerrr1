@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3rd Trimester Pregnancy Guide</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #FCFCFC; 
+            color: #333;
+            margin: 0;
+            padding: 0;
+            opacity: 0; 
+            transition: opacity 0.8s ease-in-out;
+            overflow-x: hidden; 
+        }
+
+        body.loaded {
+            opacity: 1; 
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        header {
+            background: #0082c8;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: slideDown 1s ease-in-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px); 
+            animation: fadeInUp 1s ease-in-out 0.5s forwards; 
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress {
+            margin-bottom: 30px;
+        }
+
+        .progress h2 {
+            color: #0082c8;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            background: #ddd;
+            border-radius: 10px;
+            height: 20px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #0082c8, #0066a1);
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            line-height: 20px;
+            border-radius: 10px;
+            animation: progressFill 2s ease-in-out;
+        }
+
+        @keyframes progressFill {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-left: 5px solid #0082c8;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px); 
+            animation: fadeInUp 1s ease-in-out 0.8s forwards; 
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: #0082c8;
+            margin-bottom: 15px;
+        }
+
+        .section h3 {
+            color: #0066a1;
+            margin-top: 15px;
+        }
+
+        .section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        .section ul li {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: linear-gradient(90deg, #0082c8, #0066a1);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #0066a1, #0082c8);
+            transform: scale(1.05);
+        }
+
+        details {
+            margin-bottom: 10px;
+        }
+
+        details summary {
+            font-weight: bold;
+            cursor: pointer;
+            color: #0082c8;
+        }
+
+        details p {
+            margin-top: 10px;
+            color: #555;
+        }
+
+        footer {
+            background: #0082c8;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1s ease-in-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>3rd Trimester Pregnancy Guide</h1>
+    </header>
+
+    <section class="container">
+        <div class="progress">
+            <h2>Trimester Progress</h2>
+            <p>The final stage of pregnancy! Your baby is gaining weight rapidly, and your body is preparing for labor.</p>
+            <div class="progress-bar">
+                <div class="progress-fill">100% Completed</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Baby Development: Week-by-Week</h2>
+            <h3>Week 28-32: Brain & Lung Maturity</h3>
+            <p>The **baby’s brain develops rapidly**, and the lungs start producing surfactant, which helps with breathing after birth.</p>
+
+            <h3>Week 33-36: Weight Gain & Sleep Cycles</h3>
+            <p>The baby gains more fat, **practices breathing movements**, and develops a regular **sleep-wake cycle**.</p>
+
+            <h3>Week 37-40: Final Growth & Labor Preparation</h3>
+            <p>The baby moves into the **head-down position**, and your body prepares for **contractions and labor**.</p>
+        </div>
+
+        <div class="section">
+            <h2>Advanced Nutrition & Superfoods</h2>
+            <p>Your baby is growing fast, so focus on **high-protein and energy-boosting foods**:</p>
+            <ul>
+                <li><strong>Eggs & Dairy:</strong> High in **protein** and calcium for strong bones.</li>
+                <li><strong>Oats & Whole Grains:</strong> Help maintain **stable energy levels**.</li>
+                <li><strong>Spinach & Red Meat:</strong> Rich in **iron** to prevent anemia.</li>
+                <li><strong>Dates:</strong> May help **prepare the cervix for labor**.</li>
+                <li><strong>Water & Coconut Water:</strong> Essential for **hydration**.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Safe Exercise & Labor Preparation</h2>
+            <p>Gentle movements **reduce swelling, improve circulation, and prepare your body for labor**:</p>
+            <ul>
+                <li><strong>Walking:</strong> Helps baby move into position.</li>
+                <li><strong>Prenatal Squats:</strong> Strengthens pelvic muscles for birth.</li>
+                <li><strong>Deep Breathing & Meditation:</strong> Reduces stress and prepares for labor.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Mental Health & Emotional Well-being</h2>
+            <p>Emotional changes and anxiety about labor are normal. Here’s how to manage stress:</p>
+            <ul>
+                <li>Join a **prenatal class** to prepare for delivery.</li>
+                <li>Practice **positive affirmations and relaxation techniques**.</li>
+                <li>Talk with your partner or doctor about **birth plans**.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Medical Check-up Schedule</h2>
+            <p>During the final trimester, **more frequent check-ups** are required:</p>
+            <ul>
+                <li><strong>Week 28-32:</strong> Monitor fetal heartbeat and growth.</li>
+                <li><strong>Week 36:</strong> Check baby’s position and cervix dilation.</li>
+                <li><strong>Week 37-40:</strong> Final **labor preparation and delivery planning**.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Interactive Baby Kick Counter</h2>
+            <p>Track your baby’s movements. Count at least **10 kicks in 2 hours**.</p>
+            <button onclick="countKick()">👣 Count Kick</button>
+            <p id="kickResult">Kicks: 0</p>
+        </div>
+
+        <div class="section">
+            <h2>Interactive Weight Gain Tracker</h2>
+            <label for="weight">Enter Your Weight (kg):</label>
+            <input type="number" id="weight" placeholder="Enter weight">
+            <button onclick="trackWeight()">Track Weight</button>
+            <p id="weightResult"></p>
+        </div>
+
+        <div class="section">
+            <h2>🚨 Pregnancy Risks & Emergency Alerts</h2>
+            <p>Seek immediate medical attention if you experience:</p>
+            <ul>
+                <li>Severe swelling (sign of **preeclampsia**).</li>
+                <li>Decreased fetal movement.</li>
+                <li>Strong contractions before **week 37** (sign of **preterm labor**).</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>FAQ (Frequently Asked Questions)</h2>
+            <details>
+                <summary>When should I go to the hospital?</summary>
+                <p>If contractions are **5 minutes apart, lasting 1 minute, for 1 hour** ("5-1-1 Rule").</p>
+            </details>
+            <details>
+                <summary>What should I pack for the hospital?</summary>
+                <p>Essentials: **ID, baby clothes, snacks, phone charger, and birth plan.**</p>
+            </details>
+        </div>
+
+        <div class="contact-doctor">
+            <a href="home.html"><button>Back To Home</button></a>
+        </div>
+    </section>
+
+    <footer>
+        <p>Stay Healthy & Prepare for a Safe Delivery! ❤️</p>
+    </footer>
+
+    <script>
+        let kickCount = 0;
+
+        function countKick() {
+            kickCount++;
+            document.getElementById("kickResult").innerText = "Kicks: " + kickCount;
+        }
+
+        function trackWeight() {
+            let weight = document.getElementById("weight").value;
+            if (weight) {
+                document.getElementById("weightResult").innerText = "Your current weight is " + weight + " kg. Keep tracking weekly!";
+            } else {
+                document.getElementById("weightResult").innerText = "Please enter a valid weight.";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.body.classList.add("loaded");
+        });
+    </script>
+</body>
+</html>
