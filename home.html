@@ -6,6 +6,31 @@
     <title>Pregnancy Journey - Vertical Gradient</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
     <style>
+          body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .chatbot-icon img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .chatbot-icon img:hover {
+            transform: scale(1.1); /* Slightly enlarge on hover */
+        }
         body {
             margin: 0;
             padding: 0;
@@ -204,6 +229,17 @@
     <a href="checker.html"><button class="checker">Click here to check symptoms</button></a>
 </div>
 
+
+<div class="chatbot-icon" onclick="redirectToChat()">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Chatbot Icon">
+</div>
+
+<script>
+    // JavaScript to redirect to the chat page
+    function redirectToChat() {
+        window.location.href = "bot.html"; // Replace with your chat URL
+    }
+</script>
 <footer>
     <p>&copy; 2023 Pregnancy Journey. All rights reserved.</p>
 </footer>
