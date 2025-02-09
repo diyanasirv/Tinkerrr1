@@ -40,7 +40,17 @@ The image shows the first UI
 This image shows the second UI showing important diets , trimester related etc
 
 ![image](https://github.com/user-attachments/assets/bfde750d-92db-4648-ad47-528688f20665)
-This image shows the chatbox interface
+This image shows the chatbot interface
+
+### video
+https://youtu.be/ExwkY4JGBp8
+
+###Team Contributions
+
+Diya Nasir : 
+Fathima Hana: [Specific contributions]
+Nidha R     : [Specific contributions]
+Made with ❤️ at TinkerHub
 
 
 
