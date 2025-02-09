@@ -27,14 +27,16 @@ For Software:
 ### Implementation
 The app is likely a static web application with dynamic content, using modern front-end technologies (like JavaScript, HTML, CSS, and possibly React or Vue.js)
 
-### Installation
-frontend 
+### Hosted project link
+https://pregnancyjourney.netlify.app/
 
 
 ### Project Description 
 screenshots
 ![image](https://github.com/user-attachments/assets/b400cb96-5470-4a9b-af86-76a2d8e3ee94)
 ![image](https://github.com/user-attachments/assets/a09e50cd-bdb8-4ce7-910f-9cb4d8f4ea51)
+![image](https://github.com/user-attachments/assets/a03573d7-67e9-4446-9f4e-4c208f879c34)
+
 
 
 
