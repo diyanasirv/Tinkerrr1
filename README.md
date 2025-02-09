@@ -50,9 +50,9 @@ https://youtu.be/ExwkY4JGBp8
 
 ###Team Contributions
 
-Diya Nasir  : Home Page designing and added trimester informations using HTML , JS , CSS.
-Fathima Hana: Designed pregnancy symptom checker using HTML ,  CSS.
-Nidha R     : Designed chatbot interface using HTML , CSS , JS and edited read me page .
+-Diya Nasir  : Home Page designing and added trimester informations using HTML , JS , CSS.
+-Fathima Hana: Designed pregnancy symptom checker using HTML ,  CSS.
+-Nidha R     : Designed chatbot interface using HTML , CSS , JS and edited read me page .
 Made with ❤️ at TinkerHub
 
 
