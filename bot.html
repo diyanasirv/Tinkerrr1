@@ -117,86 +117,236 @@
 
     <script>
         // JavaScript for the chatbot functionality
-        function sendMessage() {
-            let userInput = document.getElementById("userInput").value;
-            if (userInput.trim() === "") return;  // Do nothing if input is empty
+        document.addEventListener("DOMContentLoaded", function () {
+    const userInput = document.getElementById("userInput");
+    const chatBox = document.getElementById("chatBox");
 
-            // Display the user's message
-            let chat = document.getElementById("chat");
-            let userMessageDiv = document.createElement("div");
-            userMessageDiv.classList.add("chat-message", "user-message");
-            userMessageDiv.innerHTML = `<p>${userInput}</p>`;
-            chat.appendChild(userMessageDiv);
-
-            // Scroll to the bottom of the chat
-            chat.scrollTop = chat.scrollHeight;
-
-            // Clear the input field
-            document.getElementById("userInput").value = "";
-
-            // Simulate a response from the chatbot (AI interaction)
-            setTimeout(() => {
-                let botResponse = generateBotResponse(userInput);
-                let botMessageDiv = document.createElement("div");
-                botMessageDiv.classList.add("chat-message", "bot-message");
-                botMessageDiv.innerHTML = `<p>${botResponse}</p>`;
-                chat.appendChild(botMessageDiv);
-
-                // Scroll to the bottom of the chat
-                chat.scrollTop = chat.scrollHeight;
-            }, 1000);
+    userInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            sendMessage();
         }
+    });
+});
 
-        // A function to simulate bot responses based on the user's input
-        function generateBotResponse(userInput) {
-            userInput = userInput.toLowerCase();
+function sendMessage() {
+    const userInput = document.getElementById("userInput");
+    const chatBox = document.getElementById("chatBox");
+    let userMessage = userInput.value.trim();
+    
+    if (!userMessage) return;
 
-            // Responses for common pregnancy-related questions
-            if (userInput.includes("pain") || userInput.includes("hurt")) {
-                return "I'm so sorry to hear that you're in pain. It's important to speak to your healthcare provider. Please rest and try to stay calm.";
-            } else if (userInput.includes("help")) {
-                return "I'm here for you. Can you describe the situation or tell me more about how you're feeling?";
-            } else if (userInput.includes("baby")) {
-                return "It's important to make sure your baby is doing well. Make sure to track your movements and monitor any discomfort.";
-            } else if (userInput.includes("headache")) {
-                return "Headaches can be common during pregnancy. Make sure to drink plenty of water, rest, and avoid stress. If it persists, consult your doctor.";
-            } else if (userInput.includes("nausea") || userInput.includes("morning sickness")) {
-                return "Nausea and morning sickness are common during pregnancy. Try eating small, frequent meals and avoiding strong smells. Ginger tea or crackers might help.";
-            } else if (userInput.includes("exercise")) {
-                return "Light exercise like walking or prenatal yoga is great during pregnancy. Always consult your doctor before starting any new exercise routine.";
-            } else if (userInput.includes("food") || userInput.includes("diet")) {
-                return "A balanced diet is important during pregnancy. Include plenty of fruits, vegetables, whole grains, and protein. Avoid raw or undercooked foods.";
-            } else if (userInput.includes("sleep")) {
-                return "Sleep can be challenging during pregnancy. Try sleeping on your side with a pillow between your legs for support. Avoid caffeine before bed.";
-            } else if (userInput.includes("stress") || userInput.includes("anxiety")) {
-                return "Pregnancy can be stressful. Practice relaxation techniques like deep breathing, meditation, or prenatal yoga. Don't hesitate to talk to someone you trust.";
-            } else if (userInput.includes("vitamins") || userInput.includes("supplements")) {
-                return "Prenatal vitamins are important for your baby's development. Make sure to take them as prescribed by your doctor.";
-            } else if (userInput.includes("contractions") || userInput.includes("labor")) {
-                return "If you're experiencing regular contractions or think you're in labor, contact your healthcare provider immediately.";
-            } else if (userInput.includes("weight")) {
-                return "Weight gain is a normal part of pregnancy. Your doctor will guide you on what's healthy for your specific situation.";
-            } else if (userInput.includes("swelling") || userInput.includes("edema")) {
-                return "Swelling in the feet and ankles is common during pregnancy. Elevate your legs, stay hydrated, and avoid standing for long periods.";
-            } else if (userInput.includes("back pain")) {
-                return "Back pain is common during pregnancy. Try using a pregnancy support belt, practicing good posture, and doing gentle stretches.";
-            } else if (userInput.includes("cramps")) {
-                return "Mild cramps can be normal, but if they're severe or persistent, contact your healthcare provider.";
-            } else if (userInput.includes("due date")) {
-                return "Your due date is an estimate. Most babies are born between 38 and 42 weeks. Your doctor can give you a more accurate date.";
-            } else if (userInput.includes("ultrasound")) {
-                return "Ultrasounds are safe and help monitor your baby's growth and development. Follow your doctor's recommendations for scheduling them.";
-            } else if (userInput.includes("breastfeeding")) {
-                return "Breastfeeding is beneficial for both you and your baby. Consider taking a prenatal breastfeeding class to prepare.";
-            } else if (userInput.includes("hospital bag")) {
-                return "Start packing your hospital bag around 36 weeks. Include essentials like clothes, toiletries, baby clothes, and important documents.";
-            } else if (userInput.includes("baby movements")) {
-                return "Feeling your baby move is a good sign. If you notice a decrease in movement, contact your healthcare provider immediately.";
-            } else {
-                return "I'm here to help! If you're feeling anxious or have questions, feel free to share.";
-            }
-        }
+    appendMessage("You", userMessage, "user-message");
+    let botResponse = getPregnancyResponse(userMessage);
+    appendMessage("Bot", botResponse, "bot-message");
 
+    userInput.value = "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function appendMessage(sender, message, className) {
+    const chatBox = document.getElementById("chatBox");
+    let messageDiv = document.createElement("div");
+    messageDiv.classList.add(className);
+    messageDiv.textContent = `${sender}: ${message}`;
+    chatBox.appendChild(messageDiv);
+}
+
+
+    // Responses for common pregnancy-related questions
+    if (userInput.includes("pain") || userInput.includes("hurt")) {
+        return "I'm so sorry to hear that you're in pain. It's important to speak to your healthcare provider. Please rest and try to stay calm.";
+    } else if (userInput.includes("help")) {
+        return "I'm here for you. Can you describe the situation or tell me more about how you're feeling?";
+    } else if (userInput.includes("baby")) {
+        return "It's important to make sure your baby is doing well. Make sure to track your movements and monitor any discomfort.";
+    } else if (userInput.includes("headache")) {
+        return "Headaches can be common during pregnancy. Make sure to drink plenty of water, rest, and avoid stress. If it persists, consult your doctor.";
+    } else if (userInput.includes("nausea") || userInput.includes("morning sickness")) {
+        return "Nausea and morning sickness are common during pregnancy. Try eating small, frequent meals and avoiding strong smells. Ginger tea or crackers might help.";
+    } else if (userInput.includes("exercise")) {
+        return "Light exercise like walking or prenatal yoga is great during pregnancy. Always consult your doctor before starting any new exercise routine.";
+    } else if (userInput.includes("food") || userInput.includes("diet")) {
+        return "A balanced diet is important during pregnancy. Include plenty of fruits, vegetables, whole grains, and protein. Avoid raw or undercooked foods.";
+    } else if (userInput.includes("sleep")) {
+        return "Sleep can be challenging during pregnancy. Try sleeping on your side with a pillow between your legs for support. Avoid caffeine before bed.";
+    } else if (userInput.includes("stress") || userInput.includes("anxiety")) {
+        return "Pregnancy can be stressful. Practice relaxation techniques like deep breathing, meditation, or prenatal yoga. Don't hesitate to talk to someone you trust.";
+    } else if (userInput.includes("vitamins") || userInput.includes("supplements")) {
+        return "Prenatal vitamins are important for your baby's development. Make sure to take them as prescribed by your doctor.";
+    } else if (userInput.includes("contractions") || userInput.includes("labor")) {
+        return "If you're experiencing regular contractions or think you're in labor, contact your healthcare provider immediately.";
+    } else if (userInput.includes("weight")) {
+        return "Weight gain is a normal part of pregnancy. Your doctor will guide you on what's healthy for your specific situation.";
+    } else if (userInput.includes("swelling") || userInput.includes("edema")) {
+        return "Swelling in the feet and ankles is common during pregnancy. Elevate your legs, stay hydrated, and avoid standing for long periods.";
+    } else if (userInput.includes("back pain")) {
+        return "Back pain is common during pregnancy. Try using a pregnancy support belt, practicing good posture, and doing gentle stretches.";
+    } else if (userInput.includes("cramps")) {
+        return "Mild cramps can be normal, but if they're severe or persistent, contact your healthcare provider.";
+    } else if (userInput.includes("due date")) {
+        return "Your due date is an estimate. Most babies are born between 38 and 42 weeks. Your doctor can give you a more accurate date.";
+    } else if (userInput.includes("ultrasound")) {
+        return "Ultrasounds are safe and help monitor your baby's growth and development. Follow your doctor's recommendations for scheduling them.";
+    } else if (userInput.includes("breastfeeding")) {
+        return "Breastfeeding is beneficial for both you and your baby. Consider taking a prenatal breastfeeding class to prepare.";
+    } else if (userInput.includes("hospital bag")) {
+        return "Start packing your hospital bag around 36 weeks. Include essentials like clothes, toiletries, baby clothes, and important documents.";
+    } else if (userInput.includes("baby movements")) {
+        return "Feeling your baby move is a good sign. If you notice a decrease in movement, contact your healthcare provider immediately.";
+    } else if (userInput.includes("fatigue") || userInput.includes("tiredness")) {
+        return "Fatigue is very common during pregnancy. Make sure to rest, stay hydrated, and listen to your body.";
+    } else if (userInput.includes("heartburn")) {
+        return "Heartburn can be uncomfortable during pregnancy. Try eating smaller meals, avoiding spicy foods, and sleeping propped up.";
+    } else if (userInput.includes("constipation")) {
+        return "Constipation is common during pregnancy. Increase your fiber intake, drink plenty of water, and stay active.";
+    } else if (userInput.includes("dizziness") || userInput.includes("lightheadedness")) {
+        return "Dizziness can occur due to changes in blood pressure. Sit or lie down if you feel lightheaded, and avoid standing up too quickly.";
+    } else if (userInput.includes("shortness of breath")) {
+        return "Shortness of breath is normal as your baby grows. Practice good posture and take breaks if you feel out of breath.";
+    } else if (userInput.includes("varicose veins")) {
+        return "Varicose veins can develop during pregnancy. Elevate your legs, avoid standing for long periods, and wear compression stockings.";
+    } else if (userInput.includes("hemorrhoids")) {
+        return "Hemorrhoids can be painful. Increase your fiber intake, drink plenty of water, and use a sitz bath for relief.";
+    } else if (userInput.includes("round ligament pain")) {
+        return "Round ligament pain is common as your uterus grows. Try gentle stretches and avoid sudden movements.";
+    } else if (userInput.includes("pelvic pain")) {
+        return "Pelvic pain can occur due to the pressure of your growing baby. Rest and use a pregnancy support belt for relief.";
+    } else if (userInput.includes("itchy skin")) {
+        return "Itchy skin is common during pregnancy. Use a gentle moisturizer and avoid hot showers. If itching is severe, consult your doctor.";
+    } else if (userInput.includes("stretch marks")) {
+        return "Stretch marks are a natural part of pregnancy. Keep your skin moisturized and stay hydrated.";
+    } else if (userInput.includes("fetal development")) {
+        return "Your baby is growing every day! Follow your doctor's advice to ensure healthy development.";
+    } else if (userInput.includes("baby kicks")) {
+        return "Feeling your baby kick is a wonderful sign of their growth. Track movements and report any changes to your doctor.";
+    } else if (userInput.includes("preeclampsia")) {
+        return "Preeclampsia is a serious condition. Symptoms include high blood pressure and swelling. Contact your doctor immediately if you suspect it.";
+    } else if (userInput.includes("gestational diabetes")) {
+        return "Gestational diabetes can be managed with diet, exercise, and monitoring. Follow your doctor's advice closely.";
+    } else if (userInput.includes("placenta previa")) {
+        return "Placenta previa requires careful monitoring. Avoid strenuous activity and follow your doctor's recommendations.";
+    } else if (userInput.includes("miscarriage")) {
+        return "I'm so sorry you're going through this. Please reach out to your healthcare provider for support and guidance.";
+    } else if (userInput.includes("postpartum")) {
+        return "Postpartum recovery is important. Rest, eat well, and seek help if you're feeling overwhelmed.";
+    } else if (userInput.includes("breastfeeding")) {
+        return "Breastfeeding can be challenging at first. Consider consulting a lactation specialist for support.";
+    } else if (userInput.includes("hospital bag")) {
+        return "Pack your hospital bag with essentials like clothes, toiletries, and baby items. Don't forget important documents!";
+    } else if (userInput.includes("baby movements")) {
+        return "Feeling your baby move is reassuring. If movements decrease, contact your healthcare provider immediately.";
+    }
+    else if (userInput.includes("baby movements")) {
+        return "Feeling your baby move is reassuring. If movements decrease, contact your healthcare provider immediately.";
+} else if (userInput.includes("baby names") || userInput.includes("name ideas")) {
+    return "Choosing a baby name is exciting! Consider family names, meanings, and how the name sounds with your last name.";
+} else if (userInput.includes("baby registry")) {
+    return "A baby registry helps you prepare for your baby's arrival. Include essentials like diapers, clothes, and a car seat.";
+} else if (userInput.includes("baby shower")) {
+    return "A baby shower is a great way to celebrate your upcoming arrival. Plan games, food, and fun activities with your loved ones.";
+} else if (userInput.includes("maternity leave")) {
+    return "Maternity leave allows you to recover and bond with your baby. Check your employer's policy and plan ahead.";
+} else if (userInput.includes("pregnancy pillow")) {
+    return "A pregnancy pillow can help you sleep more comfortably. Look for one that supports your back, belly, and legs.";
+} else if (userInput.includes("baby clothes")) {
+    return "Baby clothes should be soft, comfortable, and easy to put on. Don't forget to wash them before use!";
+} else if (userInput.includes("baby gear")) {
+    return "Essential baby gear includes a crib, stroller, car seat, and diaper bag. Research safety standards before purchasing.";
+} else if (userInput.includes("babyproofing")) {
+    return "Babyproofing your home is important. Cover outlets, secure furniture, and keep small objects out of reach.";
+} else if (userInput.includes("baby milestones")) {
+    return "Your baby will reach many milestones in their first year, like smiling, rolling over, and crawling. Enjoy every moment!";
+} else if (userInput.includes("baby sleep")) {
+    return "Newborns sleep a lot but in short stretches. Create a calming bedtime routine to help them sleep better.";
+} else if (userInput.includes("baby feeding")) {
+    return "Whether breastfeeding or formula feeding, make sure your baby is getting enough nutrients. Follow your pediatrician's advice.";
+} else if (userInput.includes("baby bath")) {
+    return "Bathe your baby 2-3 times a week using warm water and gentle soap. Always support their head and neck.";
+} else if (userInput.includes("baby crying")) {
+    return "Babies cry to communicate. Check if they're hungry, tired, or need a diaper change. Comfort them with gentle rocking or singing.";
+} else if (userInput.includes("baby health")) {
+    return "Regular checkups with your pediatrician are important for your baby's health. Keep track of vaccinations and growth milestones.";
+} else if (userInput.includes("baby toys")) {
+    return "Choose age-appropriate toys that are safe and stimulating. Look for toys that encourage sensory development.";
+} else if (userInput.includes("baby carrier")) {
+    return "A baby carrier allows you to keep your baby close while keeping your hands free. Make sure it provides proper support.";
+} else if (userInput.includes("baby monitor")) {
+    return "A baby monitor helps you keep an eye on your baby while they sleep. Choose one with good audio and video quality.";
+} else if (userInput.includes("baby sunscreen")) {
+    return "Avoid direct sun exposure for babies under 6 months. For older babies, use a baby-safe sunscreen with SPF 30 or higher.";
+} else if (userInput.includes("baby teething")) {
+    return "Teething can be uncomfortable for your baby. Offer a teething ring or gently massage their gums with a clean finger.";
+} else if (userInput.includes("baby colic")) {
+    return "Colic can cause prolonged crying in babies. Try soothing techniques like swaddling, rocking, or white noise.";
+} else if (userInput.includes("baby rash")) {
+    return "Baby rashes are common. Keep the area clean and dry, and consult your pediatrician if it doesn't improve.";
+} else if (userInput.includes("baby fever")) {
+    return "If your baby has a fever, contact your pediatrician. Keep them hydrated and monitor their temperature.";
+} else if (userInput.includes("baby cold")) {
+    return "Babies can catch colds easily. Use a saline spray and a bulb syringe to clear their nose, and consult your pediatrician if symptoms worsen.";
+} else if (userInput.includes("baby allergies")) {
+    return "Watch for signs of allergies, like rashes or difficulty breathing. Introduce new foods one at a time and consult your pediatrician.";
+} else if (userInput.includes("baby vaccines")) {
+    return "Vaccines protect your baby from serious illnesses. Follow the recommended schedule provided by your pediatrician.";
+} else if (userInput.includes("baby weight gain")) {
+    return "Healthy weight gain is important for your baby's growth. Your pediatrician will track this during checkups.";
+} else if (userInput.includes("baby development")) {
+    return "Your baby will grow and develop rapidly in the first year. Encourage tummy time and interactive play to support their development.";
+} else if (userInput.includes("baby bonding")) {
+    return "Bonding with your baby is important. Spend time cuddling, talking, and singing to them.";
+} else if (userInput.includes("baby books")) {
+    return "Reading to your baby helps with language development. Choose colorful, interactive books with simple text.";
+} else if (userInput.includes("baby music")) {
+    return "Music can soothe and stimulate your baby. Play lullabies or sing to them to create a calming environment.";
+} else if (userInput.includes("baby travel")) {
+    return "Traveling with a baby requires planning. Pack essentials like diapers, formula, and a change of clothes.";
+} else if (userInput.includes("baby safety")) {
+    return "Always prioritize your baby's safety. Use a rear-facing car seat, avoid loose bedding in the crib, and never leave them unattended.";
+} else if (userInput.includes("baby sleep training")) {
+    return "Sleep training can help your baby develop healthy sleep habits. Consult your pediatrician for advice on methods like Ferber or gentle sleep training.";
+} else if (userInput.includes("baby weaning")) {
+    return "Weaning is the process of introducing solid foods. Start with single-grain cereals and pureed fruits or vegetables.";
+} else if (userInput.includes("baby potty training")) {
+    return "Potty training usually starts around 2-3 years old. Look for signs of readiness, like staying dry for longer periods.";
+} else if (userInput.includes("baby daycare")) {
+    return "Choosing a daycare is an important decision. Visit facilities, check reviews, and ask about their safety policies.";
+} else if (userInput.includes("baby siblings")) {
+    return "Preparing siblings for a new baby can help ease the transition. Involve them in preparations and give them extra attention.";
+} else if (userInput.includes("baby photos")) {
+    return "Capture precious moments with your baby through photos. Consider hiring a professional photographer for a newborn session.";
+} else if (userInput.includes("baby memory book")) {
+    return "A memory book is a great way to document your baby's milestones. Include photos, handprints, and special memories.";
+} else if (userInput.includes("baby first steps")) {
+    return "Your baby's first steps are an exciting milestone! Encourage walking by holding their hands or using a push toy.";
+} else if (userInput.includes("baby first words")) {
+    return "Your baby's first words are a special moment. Talk to them often and encourage language development with simple words and phrases.";
+} else if (userInput.includes("baby playdate")) {
+    return "Playdates are a great way for your baby to socialize. Start with short, supervised visits with other babies.";
+} else if (userInput.includes("baby milestones")) {
+    return "Your baby will reach many milestones in their first year. Celebrate each one and track their progress with your pediatrician.";
+} else if (userInput.includes("baby growth spurts")) {
+    return "Babies go through growth spurts where they may eat and sleep more. Be patient and provide extra comfort during these times.";
+} else if (userInput.includes("baby sleep regression")) {
+    return "Sleep regressions are temporary disruptions in your baby's sleep patterns. Stick to a consistent bedtime routine to help them through it.";
+} else if (userInput.includes("baby separation anxiety")) {
+    return "Separation anxiety is a normal part of development. Reassure your baby with gentle goodbyes and consistent routines.";
+} else if (userInput.includes("baby night waking")) {
+    return "Night waking is common in babies. Ensure they're comfortable and not hungry, and try to establish a calming bedtime routine.";
+} else if (userInput.includes("baby nap schedule")) {
+    return "A consistent nap schedule helps your baby get the rest they need. Follow their cues and create a calming nap environment.";
+} else if (userInput.includes("baby bedtime routine")) {
+    return "A bedtime routine helps signal to your baby that it's time to sleep. Include activities like a bath, story, and lullaby.";
+} else if (userInput.includes("baby sleep environment")) {
+    return "Create a safe and comfortable sleep environment for your baby. Use a firm mattress, avoid loose bedding, and keep the room cool.";
+} else {
+    return "I'm here to help! If you're feeling anxious or have questions, feel free to share.";
+}
+
+}
+
+
+kkk
         // Optional: Add event listener to send message when "Enter" is pressed
         document.getElementById("userInput").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
